@@ -1,0 +1,9 @@
+base
+magrittr
+jug
+lattice
+ggplot2
+caret
+dplyr
+xgboost
+jsonlite

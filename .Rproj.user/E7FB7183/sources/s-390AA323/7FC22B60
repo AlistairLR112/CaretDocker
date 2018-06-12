@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1528378313029.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2080279103",
+    "id" : "7FC22B60",
+    "lastKnownWriteTime" : 1528815200,
+    "last_content_update" : 1528815200238,
+    "path" : "~/Documents/docker_test/docker_R/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+        "cursorPosition" : "243,796",
+        "scrollLine" : "203",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

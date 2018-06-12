@@ -1,0 +1,37 @@
+data(iris)
+library(plumber)
+library(caret)
+library(dplyr)
+library(xgboost)
+df <- iris
+
+preProcValues <- df %>% 
+  select(-Species) %>%
+  preProcess(method = c('center', 'scale'))
+
+dfCenterScaled <- predict(preProcValues, df)
+
+fitControl <- trainControl(
+  method = "repeatedcv",
+  number = 10,
+  repeats = 10)
+
+set.seed(825)
+gbmFit1 <- train(Species ~ ., 
+                 data = dfCenterScaled, 
+                 method = "xgbTree", 
+                 trControl = fitControl,
+                 verbose = T)
+gbmFit1
+
+save(gbmFit1, file ='model.RData')
+save(preProcValues, file = 'preprocessing.RData')
+
+load('model.RData')
+
+
+json <- '[{"Sepal.Length":5.1,"Sepal.Width":3.5,"Petal.Length":1.4,"Petal.Width":0.2},{"Sepal.Length":4.9,"Sepal.Width":3,"Petal.Length":1.4,"Petal.Width":0.2},{"Sepal.Length":4.7,"Sepal.Width":3.2,"Petal.Length":1.3,"Petal.Width":0.2},{"Sepal.Length":4.6,"Sepal.Width":3.1,"Petal.Length":1.5,"Petal.Width":0.2},{"Sepal.Length":5,"Sepal.Width":3.6,"Petal.Length":1.4,"Petal.Width":0.2},{"Sepal.Length":5.4,"Sepal.Width":3.9,"Petal.Length":1.7,"Petal.Width":0.4},{"Sepal.Length":4.6,"Sepal.Width":3.4,"Petal.Length":1.4,"Petal.Width":0.3},{"Sepal.Length":5,"Sepal.Width":3.4,"Petal.Length":1.5,"Petal.Width":0.2},{"Sepal.Length":4.4,"Sepal.Width":2.9,"Petal.Length":1.4,"Petal.Width":0.2},{"Sepal.Length":4.9,"Sepal.Width":3.1,"Petal.Length":1.5,"Petal.Width":0.1}]'
+fromJSON(json)
+
+
+stream_in(json)

@@ -1,0 +1,45 @@
+library(plumber)
+library(jsonlite)
+model <- readRDS('model.RDS')
+preprocessing <- readRDS('preprocessing.RDS')
+
+
+#* @get /healthcheck
+health_check <- function() {
+  result <- data.frame(
+    "input" = "",
+    "status" = 200
+  )
+  
+  return(result)
+}
+
+#* @get /
+#* @html
+home <- function() {
+  title <- "Caret, Plumber and Docker"
+  body_intro <-  "Welcome to Caret, Plumber and Docker!"
+  body_msg <- paste("To receive a prediction,", 
+                    "submit a jsonised dataframe to the <b>/predict</b> endpoint:",
+                    sep = "\n")
+  
+  result <- paste(
+    "<html>",
+    "<h1>", title, "</h1>", "<br>",
+    "<body>", 
+    "<p>", body_intro, "</p>",
+    "<p>", body_msg, "</p>",
+    "</body>",
+    "</html>",
+    collapse = "\n"
+  )
+  
+  return(result)
+}
+
+
+#* @get /predict
+#* @post /predict
+predict <- function(json){
+  
+}
